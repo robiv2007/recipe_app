@@ -4,7 +4,6 @@ import 'firebase_options.dart';
 import 'cardView.dart';
 import 'package:recipe_app/widget_tree.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -23,9 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-
-      home: const MyHomePage(title: 'Recipe Spot'),
-
+      home: const WidgetTree(),
     );
   }
 }
