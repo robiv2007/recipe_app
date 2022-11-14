@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: LoginPage(), //const MyHomePage(title: 'Recipe Spot')
+      home: const LoginPage(),
     );
   }
 }
