@@ -1,3 +1,4 @@
+import './pages/addRecipe.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:recipe_app/pages/home_page.dart';
@@ -11,7 +12,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -45,6 +46,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Recipe"),
+        actions: <Widget>[
+          (IconButton(
+            onPressed: () {
+              // _addRecipeBottomSheet(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> addRecipes(title: "name", description: "description", cookTime: "cookTime",thumbnailUrl: "thumbnailUrl")));
+            },
+            icon: Icon(Icons.add, color: Colors.white, size: 30),
+            padding: const EdgeInsets.only(right: 15),
+          ))
+        ],
       ),
       body: Center(
         child: Text("Favorites"),
@@ -52,3 +63,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+// void _addRecipeBottomSheet(context) {
+//   showModalBottomSheet(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return Container(
+//             height: MediaQuery.of(context).size.height * .60,
+//             child: Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Text("Test"),
+//             ));
+//       });
+// }

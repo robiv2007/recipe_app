@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RecipeCard extends StatelessWidget {
   final String title;
   final String rating;
   final String cookTime;
   final String thumbnailUrl;
+  
   RecipeCard({
     required this.title,
     required this.cookTime,
@@ -14,7 +16,7 @@ class RecipeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
       width: MediaQuery.of(context).size.width,
       height: 180,
       decoration: BoxDecoration(
@@ -43,11 +45,12 @@ class RecipeCard extends StatelessWidget {
       child: Stack(
         children: [
           Align(
+            alignment: Alignment.center,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 19,
                 ),
                 overflow: TextOverflow.ellipsis,
@@ -55,15 +58,15 @@ class RecipeCard extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            alignment: Alignment.center,
           ),
           Align(
+            alignment: Alignment.bottomLeft,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.4),
                     borderRadius: BorderRadius.circular(15),
@@ -81,8 +84,8 @@ class RecipeCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.4),
                     borderRadius: BorderRadius.circular(15),
@@ -94,14 +97,13 @@ class RecipeCard extends StatelessWidget {
                         color: Colors.yellow,
                         size: 18,
                       ),
-                      SizedBox(width: 7),
+                      const SizedBox(width: 7),
                       Text(cookTime),
                     ],
                   ),
                 )
               ],
             ),
-            alignment: Alignment.bottomLeft,
           ),
         ],
       ),
