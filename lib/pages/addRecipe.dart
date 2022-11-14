@@ -150,10 +150,10 @@ class addRecipes extends StatelessWidget {
     final docUser =
         FirebaseFirestore.instance.collection("Recipes").doc("my-id");
     FirebaseAuth auth = FirebaseAuth.instance;
-    String uid = auth.currentUser!.uid.toString();
+    String userUid = auth.currentUser!.uid.toString();
     
     final recipe = {
-      uid: uid,
+      userUid: userUid,
       title: name,
       description: descriptions,
       cookTime: time,
