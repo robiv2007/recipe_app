@@ -43,23 +43,49 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _title() {
-    return const Text('Firebase Auth');
+    return const Text('');
   }
 
-  Widget _entryField(
+  Widget _entryFieldEmail(
     String title,
-    TextEditingController controller,
+    TextEditingController _controllerEmail,
   ) {
     return TextField(
-      controller: controller,
+      controller: _controllerEmail,
       decoration: InputDecoration(
+        prefixIcon: Icon(Icons.mail),
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: const EdgeInsets.all(5),
+        border: UnderlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        labelText: title,
+      ),
+    );
+  }
+
+  Widget _entryFieldPassword(
+    String title,
+    TextEditingController _controllerPassword,
+  ) {
+    return TextField(
+      controller: _controllerPassword,
+      obscureText: true,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.key),
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: const EdgeInsets.all(5),
+        border: UnderlineInputBorder(borderRadius: BorderRadius.circular(10)),
         labelText: title,
       ),
     );
   }
 
   Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+    return Text(
+      errorMessage == '' ? '' : '$errorMessage',
+      style: TextStyle(color: Colors.white, fontSize: 14),
+    );
   }
 
   Widget _submitButton() {
@@ -67,16 +93,19 @@ class _LoginPageState extends State<LoginPage> {
       onPressed:
           isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
       child: Text(isLogin ? 'Login' : 'Register'),
+      style: ElevatedButton.styleFrom(fixedSize: const Size(150, 30)),
     );
   }
 
   Widget _loginOrRegisterButton() {
-    return TextButton(
+    return ElevatedButton(
       onPressed: () {
         setState(() {
           isLogin = !isLogin;
         });
       },
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blue[300], fixedSize: const Size(150, 30)),
       child: Text(isLogin ? 'Register instead' : 'Login instead'),
     );
   }
@@ -84,20 +113,44 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: _title(),
-      ),
       body: Container(
-        height: double.infinity,
-        width: double.infinity,
         padding: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage(
+                  'https://images.unsplash.com/photo-1615719413546-198b25453f85?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=436&q=80'),
+              fit: BoxFit.cover),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _entryField('email', _controllerEmail),
-            _entryField('password', _controllerPassword),
+            SizedBox(
+              height: 50,
+            ),
+            Text(
+              "Vesuvio",
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                fontSize: 70,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              height: 100,
+            ),
+            _entryFieldEmail('email', _controllerEmail),
+            SizedBox(
+              height: 5,
+            ),
+            _entryFieldPassword('password', _controllerPassword),
+            SizedBox(
+              height: 10,
+            ),
             _errorMessage(),
+            SizedBox(
+              height: 10,
+            ),
             _submitButton(),
             _loginOrRegisterButton(),
           ],
