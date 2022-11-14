@@ -32,7 +32,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const MyHomePage(title: "recipe"),
+                      builder: (context) => MyHomePage(title: "recipe"),
                     ),
                   );
                 },
