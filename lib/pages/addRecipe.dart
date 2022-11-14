@@ -149,10 +149,11 @@ class addRecipes extends StatelessWidget {
   Future<dynamic> createRecepe({required String name,required String descriptions, required String time }) async {
     final docUser =
         FirebaseFirestore.instance.collection("Recipes").doc("my-id");
-    // FirebaseAuth auth = FirebaseAuth.instance;
-    // String uid = auth.currentUser!.uid.toString();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    String uid = auth.currentUser!.uid.toString();
+    
     final recipe = {
-      //uid: uid,
+      uid: uid,
       title: name,
       description: descriptions,
       cookTime: time,

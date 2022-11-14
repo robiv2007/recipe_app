@@ -45,17 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recipe"),
-        actions: <Widget>[
-          (IconButton(
-            onPressed: () {
-              // _addRecipeBottomSheet(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> addRecipes(title: "name", description: "description", cookTime: "cookTime",thumbnailUrl: "thumbnailUrl")));
-            },
-            icon: Icon(Icons.add, color: Colors.white, size: 30),
-            padding: const EdgeInsets.only(right: 15),
-          ))
-        ],
+        title: const Text("Recipeee"),
       ),
       body: Center(
         child: Text("Favorites"),

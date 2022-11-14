@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/cardView.dart';
 import 'package:recipe_app/main.dart';
 import '../auth.dart';
-
+import 'addRecipe.dart';
 class RecipeOverviewScreen extends StatefulWidget {
   const RecipeOverviewScreen({super.key});
 
@@ -26,6 +26,13 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
+             ListTile(
+              leading: Icon(Icons.add_circle_outline),
+              title: const Text("Add Recipe"),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> addRecipes(title: "name", description: "description", cookTime: "cookTime",thumbnailUrl: "thumbnailUrl")));
+            },
+          ),
               ListTile(
                 leading: Icon(Icons.favorite_border),
                 title: Text("Favorite"),
