@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: const LoginPage(),
+      home: const WidgetTree(),
     );
   }
 }
@@ -43,25 +43,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: ListView.builder(
-          padding: EdgeInsets.all(16),
-          itemBuilder: (context, index) {
-            return RecipeCard(
-              title: "pizza",
-              cookTime: "40",
-              rating: "8",
-              thumbnailUrl: "",
-            );
-          },
-        )
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: {},
-        //   tooltip: 'Increment',
-        //   child: const Icon(Icons.add),
-        // ),
-        );
+      appBar: AppBar(
+        title: Text("Recipe"),
+      ),
+      body: Center(
+        child: Text("Favorites"),
+      ),
+    );
   }
 }

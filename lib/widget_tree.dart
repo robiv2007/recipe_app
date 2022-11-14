@@ -3,6 +3,7 @@ import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/pages/login_register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/main.dart';
+import 'package:recipe_app/pages/recipe_overview_screen.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _WidgetTreeState extends State<WidgetTree> {
       stream: Auth().authStateChanges,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return const MyHomePage(title: 'Recipe Spot');
+          return const RecipeOverviewScreen();
         } else {
           return const LoginPage();
         }
