@@ -9,13 +9,32 @@ class addRecipes extends StatelessWidget {
   final String description;
   final String cookTime;
   final String thumbnailUrl;
+  String id;
 
   addRecipes({
+    this.id = "",
     required this.title,
     required this.description,
     required this.cookTime,
     required this.thumbnailUrl,
   });
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": title,
+        "CookTime": cookTime,
+        "description": description,
+        "thumbnailUrl": thumbnailUrl,
+      };
+
+      static addRecipes fromJson(Map<String, dynamic> json) =>addRecipes(
+        id: json["id"],
+        title: json["name"],
+        cookTime: json["cookTime"],
+        description: json["description"],
+        thumbnailUrl: json["thumbnail"],
+
+      );
 
   final titleName = TextEditingController();
   final titleDescription = TextEditingController();
@@ -48,31 +67,28 @@ class addRecipes extends StatelessWidget {
               SizedBox(
                 width: 100,
                 height: 40,
-                child: ElevatedButton(onPressed: (){
-                  final name = titleName.text;
-                 final description = titleDescription.text;
-                 final cookTime = titleCookTime.text;
-                 createRecepe(name: name, descriptions: description, time:cookTime);
-                 },
-                 child: const Text("Save", style: TextStyle(color: Colors.white),
+                child: ElevatedButton(
+                  onPressed: () {
+                    final name = titleName.text;
+                    final description = titleDescription.text;
+                    final cookTime = titleCookTime.text;
+                    createRecepe(
+                        name: name, descriptions: description, time: cookTime);
+                  },
+                  child: const Text(
+                    "Save",
+                    style: TextStyle(color: Colors.white),
                   ),
-                 ),
+                ),
               ),
-              // IconButton(
-              // onPressed: () {
-              //   final name = titleName.text;
-              //   final description = titleDescription.text;
-              //   final cookTime = titleCookTime.text;
-              //   createRecepe(name: name, descriptions: description, time:cookTime);
-              // },
-              // icon: Icon(Icons.add)),
             ],
           ),
         ),
       );
 
-  Widget buildTextFormFieldName() => TextFormField(controller: titleName,
-      decoration: InputDecoration(
+  Widget buildTextFormFieldName() => TextFormField(
+        controller: titleName,
+        decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.orange),
             borderRadius: BorderRadius.circular(5.5),
@@ -91,15 +107,15 @@ class addRecipes extends StatelessWidget {
           labelText: "Recipe Name",
           labelStyle: TextStyle(color: Colors.orange),
         ),
-      
-  );
+      );
 
   Widget heightSpacer(double myHeight) => SizedBox(
         height: myHeight,
-  );
+      );
 
-  Widget buildTextFormFieldCookTime() => TextFormField(controller: titleCookTime,
-      decoration: InputDecoration(
+  Widget buildTextFormFieldCookTime() => TextFormField(
+        controller: titleCookTime,
+        decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.orange),
             borderRadius: BorderRadius.circular(5.5),
@@ -118,13 +134,13 @@ class addRecipes extends StatelessWidget {
           labelText: "Timer",
           labelStyle: TextStyle(color: Colors.orange),
         ),
-  );
-  
+      );
 
-  Widget buildTextFormFieldDescription() => TextField(controller: titleDescription, 
-      minLines: 2,
-      maxLines: 5,
-      decoration: InputDecoration(
+  Widget buildTextFormFieldDescription() => TextField(
+        controller: titleDescription,
+        minLines: 2,
+        maxLines: 5,
+        decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.orange),
             borderRadius: BorderRadius.circular(5.5),
@@ -142,24 +158,32 @@ class addRecipes extends StatelessWidget {
           fillColor: Colors.orange[50],
           labelText: "description",
           labelStyle: TextStyle(color: Colors.orange),
-        
         ),
-  );
+      );
 
-  Future<dynamic> createRecepe({required String name,required String descriptions, required String time }) async {
-    final docUser =
-        FirebaseFirestore.instance.collection("Recipes").doc("my-id");
+  Stream<List<addRecipes>> readUsers() => FirebaseFirestore.instance
+      .collection("Recipe")
+      .snapshots()
+      .map((snapshot) => snapshot.docs
+          .map((doc) => addRecipes.fromJson(doc.data())).toList());
+
+  Future<dynamic> createRecepe(
+      {required String name,
+      required String descriptions,
+      required String time}) async {
+    final docUser = FirebaseFirestore.instance.collection("Recipes").doc();
     FirebaseAuth auth = FirebaseAuth.instance;
     String userUid = auth.currentUser!.uid.toString();
-    
-    final recipe = {
-      userUid: userUid,
+
+    final recipe = addRecipes(
+      id: docUser.id,
       title: name,
       description: descriptions,
       cookTime: time,
       thumbnailUrl: "test.jpg",
-    };
+    );
+    final recipesData = recipe.toJson();
 
-    await docUser.set(recipe);
+    await docUser.set(recipesData);
   }
 }

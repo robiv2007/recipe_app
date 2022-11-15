@@ -30,7 +30,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
               leading: Icon(Icons.add_circle_outline),
               title: const Text("Add Recipe"),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> addRecipes(title: "name", description: "description", cookTime: "cookTime",thumbnailUrl: "thumbnailUrl")));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> addRecipes(id: "",title: "name", description: "description", cookTime: "cookTime",thumbnailUrl: "thumbnailUrl")));
             },
           ),
               ListTile(
