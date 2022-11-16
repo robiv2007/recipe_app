@@ -33,7 +33,7 @@ class _addRecipesState extends State<addRecipes> {
   final String title;
   final String description;
   final String cookTime;
-  final String thumbnailUrl;
+  String thumbnailUrl;
   String id;
 
   _addRecipesState({
@@ -64,7 +64,6 @@ class _addRecipesState extends State<addRecipes> {
   final titleName = TextEditingController();
   final titleDescription = TextEditingController();
   final titleCookTime = TextEditingController();
-  final imgPick = ElevatedButton(onPressed: () {}, child: Text("image"));
 
   Widget buildTextFields() => Padding(
         padding: const EdgeInsets.all(35),
@@ -75,14 +74,14 @@ class _addRecipesState extends State<addRecipes> {
             children: [
               image != null
                   ? ClipOval(
-                      child: Image.file(
+                      child:
+                      thumbnailUrl== ""? Image.file(
                         image!,
                         width: 130,
                         height: 130,
                         fit: BoxFit.cover,
-                      ),
-                    )
-                  : FlutterLogo(size: 130),
+                      ): Image.network(thumbnailUrl),
+                    ): FlutterLogo(size: 130),
               buildImagePicker(
                 title: "Pick Galerry",
                 icon: Icons.image_outlined,
@@ -107,7 +106,7 @@ class _addRecipesState extends State<addRecipes> {
                     final cookTime = titleCookTime.text;
 
                     createRecepe(
-                        name: name, descriptions: description, time: cookTime);
+                        name: name, descriptions: description, time: cookTime, thumbnailUrl: thumbnailUrl);
                   },
                   child: const Text(
                     "Save",
@@ -225,12 +224,17 @@ class _addRecipesState extends State<addRecipes> {
       final image = await ImagePicker()
           .pickImage(source: ImageSource.gallery, imageQuality: 75);
       if (image == null) return;
-      
+
       Reference ref =
           FirebaseStorage.instance.ref().child("RecipesPicture.jpg");
+
       await ref.putFile(File(image!.path));
       ref.getDownloadURL().then((value) {
         print(value);
+
+        setState(() {
+          thumbnailUrl = value;
+        });
       });
 
       final imageTemporary = File(image.path);
@@ -252,14 +256,15 @@ class _addRecipesState extends State<addRecipes> {
   Future<dynamic> createRecepe(
       {required String name,
       required String descriptions,
-      required String time}) async {
+      required String time,
+      required String  thumbnailUrl}) async {
     final docUser = FirebaseFirestore.instance.collection("Recipes").doc();
     FirebaseAuth auth = FirebaseAuth.instance;
     String userUid = auth.currentUser!.uid.toString();
 
     final recipe = _addRecipesState(
       id: docUser.id,
-      thumbnailUrl: "",
+      thumbnailUrl: thumbnailUrl,
       title: name,
       cookTime: time,
       description: descriptions,
@@ -275,7 +280,11 @@ class _addRecipesState extends State<addRecipes> {
       appBar: AppBar(
         title: const Text("Recipe App"),
       ),
-      body: buildTextFields(),
+      body: Container(
+        child: SingleChildScrollView(
+          child: buildTextFields(),
+        ),
+      ),
     );
   }
 }
