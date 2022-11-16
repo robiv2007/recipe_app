@@ -71,17 +71,17 @@ class _addRecipesState extends State<addRecipes> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children:  [
-              child:  Center(
-                selectImage != null
-                    child: _image == null ? const Text("No image selected",style: TextStyle(fontSize: 20),
-                      )
-                    :selectImage(),
-              buildImagePicker(
-                title: "Pick Galerry",
-                icon: Icons.image_outlined,
-                onClicked: (thumbnailUrl) => selectImage(),
-              ), 
-              ),
+              // child:  Center(
+              //   selectImage != null
+              //       child: _image == null ? const Text("No image selected",style: TextStyle(fontSize: 20),
+              //         )
+              //       :selectImage(),
+              // buildImagePicker(
+              //   title: "Pick Galerry",
+              //   icon: Icons.image_outlined,
+              //   onClicked: (thumbnailUrl) => selectImage(),
+              // ), 
+              // ),
               const SizedBox(height: 40),
               buildTextFormFieldName(),
               heightSpacer(15),
