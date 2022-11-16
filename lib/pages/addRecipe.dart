@@ -275,7 +275,11 @@ class _addRecipesState extends State<addRecipes> {
       appBar: AppBar(
         title: const Text("Recipe App"),
       ),
-      body: buildTextFields(),
+    body: Container(
+        child: SingleChildScrollView(
+          child: buildTextFields(),
+        ),
+        ), 
     );
   }
 }
