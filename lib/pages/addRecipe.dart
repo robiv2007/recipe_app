@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -63,6 +64,7 @@ class _addRecipesState extends State<addRecipes> {
   final titleName = TextEditingController();
   final titleDescription = TextEditingController();
   final titleCookTime = TextEditingController();
+  final imgPick = ElevatedButton(onPressed: () {}, child: Text("image"));
 
   Widget buildTextFields() => Padding(
         padding: const EdgeInsets.all(35),
@@ -70,18 +72,24 @@ class _addRecipesState extends State<addRecipes> {
           width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children:  [
-              // child:  Center(
-              //   selectImage != null
-              //       child: _image == null ? const Text("No image selected",style: TextStyle(fontSize: 20),
-              //         )
-              //       :selectImage(),
-              // buildImagePicker(
-              //   title: "Pick Galerry",
-              //   icon: Icons.image_outlined,
-              //   onClicked: (thumbnailUrl) => selectImage(),
-              // ), 
-              // ),
+            children: [
+              image != null
+                  ? ClipOval(
+                      child: Image.file(
+                        image!,
+                        width: 130,
+                        height: 130,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : FlutterLogo(size: 130),
+              buildImagePicker(
+                title: "Pick Galerry",
+                icon: Icons.image_outlined,
+                onClicked: () {
+                  pickImage();
+                },
+              ),
               const SizedBox(height: 40),
               buildTextFormFieldName(),
               heightSpacer(15),
@@ -117,22 +125,23 @@ class _addRecipesState extends State<addRecipes> {
     required VoidCallback onClicked,
   }) =>
       ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          minimumSize: const Size.fromHeight(40),
-          primary: Colors.amber,
-          onPrimary: Colors.black,
-          textStyle: const TextStyle(fontSize: 15),
-        ),
-        child: Row(children: [
-          Icon(icon, size: 28),
-          const SizedBox(
-            width: 16,
+          // thumbnailUrl,
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size.fromHeight(40),
+            primary: Colors.amber,
+            onPrimary: Colors.black,
+            textStyle: const TextStyle(fontSize: 15),
           ),
-          Text(title),
-        ]),
-        onPressed: () {}
-          
-      );
+          child: Row(children: [
+            Icon(icon, size: 28),
+            const SizedBox(
+              width: 16,
+            ),
+            Text(title),
+          ]),
+          onPressed: () {
+            pickImage();
+          });
 
   Widget buildTextFormFieldName() => TextFormField(
         controller: titleName,
@@ -209,27 +218,29 @@ class _addRecipesState extends State<addRecipes> {
         ),
       );
 
-  File? _image;
+  File? image;
 
-  Future selectImage(ImageSource source) async {
+  Future pickImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: source);
+      final image = await ImagePicker()
+          .pickImage(source: ImageSource.gallery, imageQuality: 75);
       if (image == null) return;
-      File? img = File(image.path);
-      setState(() {
-        _image = img;
-        Navigator.of(context).pop();
+      
+      Reference ref =
+          FirebaseStorage.instance.ref().child("RecipesPicture.jpg");
+      await ref.putFile(File(image!.path));
+      ref.getDownloadURL().then((value) {
+        print(value);
       });
+
+      final imageTemporary = File(image.path);
+      setState(() => this.image = imageTemporary);
     } on PlatformException catch (e) {
-      print(e);
-      Navigator.of(context).pop();
+      print("Failed to pick image: $e");
     }
   }
 
-  //  Future<dynamic> uploadImage() async {
-  //  final file = File(selectImage);
-  //    final path = "Images/${selectImage.toString()}";
-  // }
+  Future<dynamic> uploadImage() async {}
 
   Stream<List<_addRecipesState>> readUsers() => FirebaseFirestore.instance
       .collection("Recipe")
@@ -248,7 +259,7 @@ class _addRecipesState extends State<addRecipes> {
 
     final recipe = _addRecipesState(
       id: docUser.id,
-      thumbnailUrl: "test.jpg",
+      thumbnailUrl: "",
       title: name,
       cookTime: time,
       description: descriptions,
