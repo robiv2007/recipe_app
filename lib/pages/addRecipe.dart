@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:recipe_app/pages/recipe_overview_screen.dart';
 import 'addRecipe.dart';
 
 class addRecipes extends StatefulWidget {
@@ -74,14 +76,16 @@ class _addRecipesState extends State<addRecipes> {
             children: [
               image != null
                   ? ClipOval(
-                      child:
-                      thumbnailUrl== ""? Image.file(
-                        image!,
-                        width: 130,
-                        height: 130,
-                        fit: BoxFit.cover,
-                      ): Image.network(thumbnailUrl),
-                    ): FlutterLogo(size: 130),
+                      child: thumbnailUrl == ""
+                          ? Image.file(
+                              image!,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.network(thumbnailUrl),
+                    )
+                  : FlutterLogo(size: 130),
               buildImagePicker(
                 title: "Pick Galerry",
                 icon: Icons.image_outlined,
@@ -104,9 +108,18 @@ class _addRecipesState extends State<addRecipes> {
                     final name = titleName.text;
                     final description = titleDescription.text;
                     final cookTime = titleCookTime.text;
-
                     createRecepe(
-                        name: name, descriptions: description, time: cookTime, thumbnailUrl: thumbnailUrl);
+                        name: name,
+                        descriptions: description,
+                        time: cookTime,
+                        thumbnailUrl: thumbnailUrl);
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const RecipeOverviewScreen()));
+                    });
                   },
                   child: const Text(
                     "Save",
@@ -212,12 +225,13 @@ class _addRecipesState extends State<addRecipes> {
           ),
           filled: true,
           fillColor: Colors.orange[50],
-          labelText: "description",
+          labelText: "Description",
           labelStyle: const TextStyle(color: Colors.orange),
         ),
       );
 
   File? image;
+  PlatformFile? pickedImage;
 
   Future pickImage() async {
     try {
@@ -225,10 +239,9 @@ class _addRecipesState extends State<addRecipes> {
           .pickImage(source: ImageSource.gallery, imageQuality: 75);
       if (image == null) return;
 
-      Reference ref =
-          FirebaseStorage.instance.ref().child("RecipesPicture.jpg");
-
-      await ref.putFile(File(image!.path));
+      final fileName = "files/${image.path}";
+      Reference ref = FirebaseStorage.instance.ref().child(fileName);
+      await ref.putFile(File(image.path));
       ref.getDownloadURL().then((value) {
         print(value);
 
@@ -244,8 +257,6 @@ class _addRecipesState extends State<addRecipes> {
     }
   }
 
-  Future<dynamic> uploadImage() async {}
-
   Stream<List<_addRecipesState>> readUsers() => FirebaseFirestore.instance
       .collection("Recipe")
       .snapshots()
@@ -257,7 +268,7 @@ class _addRecipesState extends State<addRecipes> {
       {required String name,
       required String descriptions,
       required String time,
-      required String  thumbnailUrl}) async {
+      required String thumbnailUrl}) async {
     final docUser = FirebaseFirestore.instance.collection("Recipes").doc();
     FirebaseAuth auth = FirebaseAuth.instance;
     String userUid = auth.currentUser!.uid.toString();
