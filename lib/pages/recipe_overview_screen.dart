@@ -18,17 +18,6 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
 
   final User? user = Auth().currentUser;
 
-  List<String> docIds = [];
-
-  Future getDocId() async {
-    await FirebaseFirestore.instance.collection('Recipes').get().then(
-          (snapshot) => snapshot.docs.forEach((element) {
-            print(element.reference);
-            docIds.add(element.reference.id);
-          }),
-        );
-  }
-
   final CollectionReference _recipes =
       FirebaseFirestore.instance.collection('Recipes');
 
@@ -108,23 +97,6 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
               child: CircularProgressIndicator(),
             );
           }),
-      // body: FutureBuilder(
-      //   future: getDocId(),
-      //   builder: (context, snapshot) {
-      //     return ListView.builder(
-      //       itemCount: docIds.length,
-      //       padding: EdgeInsets.all(16),
-      //       itemBuilder: (context, index) {
-      //         return RecipeCard(
-      //           title: "",
-      //           cookTime: "40",
-      //           thumbnailUrl:
-      //               "https://assets.biggreenegg.eu/app/uploads/2021/04/30120446/topimage-pizza-margherita-2021m05-800x533-1.jpg",
-      //         );
-      //       },
-      //     );
-      //   },
-      // ),
     );
   }
 }
