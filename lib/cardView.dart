@@ -3,14 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RecipeCard extends StatelessWidget {
   final String title;
-  final String rating;
   final String cookTime;
   final String thumbnailUrl;
-  
+
   RecipeCard({
     required this.title,
     required this.cookTime,
-    required this.rating,
     required this.thumbnailUrl,
   });
   @override
@@ -45,14 +43,12 @@ class RecipeCard extends StatelessWidget {
       child: Stack(
         children: [
           Align(
-            alignment: Alignment.center,
+            alignment: Alignment.topCenter,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 19,
-                ),
+                style: const TextStyle(fontSize: 19, color: Colors.white),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 textAlign: TextAlign.center,
@@ -73,13 +69,7 @@ class RecipeCard extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                        size: 18,
-                      ),
                       const SizedBox(width: 7),
-                      Text(rating),
                     ],
                   ),
                 ),
@@ -98,7 +88,7 @@ class RecipeCard extends StatelessWidget {
                         size: 18,
                       ),
                       const SizedBox(width: 7),
-                      Text(cookTime),
+                      Text(cookTime, style: TextStyle(color: Colors.white)),
                     ],
                   ),
                 )
