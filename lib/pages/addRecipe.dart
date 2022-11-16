@@ -70,8 +70,8 @@ class _addRecipesState extends State<addRecipes> {
           width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              child: Center(
+            children:  [
+              child:  Center(
                 selectImage != null
                     child: _image == null ? const Text("No image selected",style: TextStyle(fontSize: 20),
                       )
@@ -130,9 +130,8 @@ class _addRecipesState extends State<addRecipes> {
           ),
           Text(title),
         ]),
-        onPressed: () {
-          selectImage();
-        },
+        onPressed: () {}
+          
       );
 
   Widget buildTextFormFieldName() => TextFormField(
