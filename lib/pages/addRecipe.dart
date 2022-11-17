@@ -79,16 +79,15 @@ class _addRecipesState extends State<addRecipes> {
                       child: thumbnailUrl == ""
                           ? Image.file(
                               image!,
-                              width: 100,
-                              height: 100,
+                              width: 130,
+                              height: 130,
                               fit: BoxFit.cover,
                             )
                           : Image.network(thumbnailUrl),
                     )
-                  : FlutterLogo(size: 130),
+                  : const FlutterLogo(size: 130),
               buildImagePicker(
-                title: "Pick Galerry",
-                icon: Icons.image_outlined,
+                icon: Icons.add_a_photo,
                 onClicked: () {
                   pickImage();
                 },
@@ -149,28 +148,16 @@ class _addRecipesState extends State<addRecipes> {
         ),
       );
   Widget buildImagePicker({
-    required String title,
     required IconData icon,
     required VoidCallback onClicked,
   }) =>
-      ElevatedButton(
-          // thumbnailUrl,
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size.fromHeight(40),
-            primary: Colors.amber,
-            onPrimary: Colors.black,
-            textStyle: const TextStyle(fontSize: 15),
-          ),
-          child: Row(children: [
-            Icon(icon, size: 28),
-            const SizedBox(
-              width: 16,
-            ),
-            Text(title),
-          ]),
-          onPressed: () {
-            pickImage();
-          });
+      IconButton(
+        onPressed: () {
+          pickImage();
+        },
+        color: Colors.orange,
+        icon: Icon(icon),
+      );
 
   Widget buildTextFormFieldName() => TextFormField(
         controller: titleName,
