@@ -87,7 +87,7 @@ class _addRecipesState extends State<addRecipes> {
                     )
                   : FlutterLogo(size: 130),
               buildImagePicker(
-                title: "Pick Galerry",
+                title: "Pick your image",
                 icon: Icons.image_outlined,
                 onClicked: () {
                   pickImage();
