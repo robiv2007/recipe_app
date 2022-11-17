@@ -113,13 +113,30 @@ class _addRecipesState extends State<addRecipes> {
                         descriptions: description,
                         time: cookTime,
                         thumbnailUrl: thumbnailUrl);
-                    setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const RecipeOverviewScreen()));
-                    });
+
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: const Text("Saving recipe"),
+                        content: const Text("Your recipe is saved"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                              Navigator.pop(context, true);
+                            },
+                            child: Container(
+                              color: Colors.green,
+                              padding: const EdgeInsets.all(14),
+                              child: const Text("OK"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+
+                    child:
+                    const Text("Show alert Dialog box");
                   },
                   child: const Text(
                     "Save",
