@@ -11,22 +11,26 @@ import 'package:recipe_app/pages/recipe_overview_screen.dart';
 import 'addRecipe.dart';
 
 class addRecipes extends StatefulWidget {
-  const addRecipes({
-    super.key,
-    required id,
-    required thumbnailUrl,
-    required title,
-    required cookTime,
-    required description,
-  });
+  const addRecipes(
+      {super.key,
+      required id,
+      required thumbnailUrl,
+      required title,
+      required cookTime,
+      required description,
+      required isLactoseFreeChecked,
+      required isVegetarianChecked,
+      required isGlutenfreeChecked});
 
   @override
   State<addRecipes> createState() => _addRecipesState(
-        title: "",
-        cookTime: "time",
-        description: "description",
-        thumbnailUrl: "",
-      );
+      title: "",
+      cookTime: "time",
+      description: "description",
+      thumbnailUrl: "",
+      isGlutenfreeChecked: false,
+      isLactoseFreeChecked: false,
+      isVegetarianChecked: false);
 
   static fromJson(Map<String, dynamic> data) {}
 }
@@ -37,14 +41,19 @@ class _addRecipesState extends State<addRecipes> {
   final String cookTime;
   String thumbnailUrl;
   String id;
+  bool? isVegetarianChecked = false;
+  bool? isGlutenfreeChecked = false;
+  bool? isLactoseFreeChecked = false;
 
-  _addRecipesState({
-    this.id = "",
-    required this.title,
-    required this.description,
-    required this.cookTime,
-    required this.thumbnailUrl,
-  });
+  _addRecipesState(
+      {this.id = "",
+      required this.title,
+      required this.description,
+      required this.cookTime,
+      required this.thumbnailUrl,
+      required this.isGlutenfreeChecked,
+      required this.isLactoseFreeChecked,
+      required this.isVegetarianChecked});
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -52,16 +61,21 @@ class _addRecipesState extends State<addRecipes> {
         "name": title,
         "CookTime": cookTime,
         "description": description,
+        "isVegetarianChecked": isVegetarianChecked,
+        "isLactoseFreeChecked": isLactoseFreeChecked,
+        "isGlutenFreeChecked": isGlutenfreeChecked
       };
 
   static _addRecipesState fromJson(Map<String, dynamic> json) =>
       _addRecipesState(
-        id: json["id"],
-        thumbnailUrl: json["thumbnail"],
-        title: json["name"],
-        cookTime: json["cookTime"],
-        description: json["description"],
-      );
+          id: json["id"],
+          thumbnailUrl: json["thumbnail"],
+          title: json["name"],
+          cookTime: json["cookTime"],
+          description: json["description"],
+          isGlutenfreeChecked: json["isGlutenFreeChecked"],
+          isLactoseFreeChecked: json["isLactoseFreeChecked"],
+          isVegetarianChecked: json["isVegetarianChecked"]);
 
   final titleName = TextEditingController();
   final titleDescription = TextEditingController();
@@ -99,6 +113,42 @@ class _addRecipesState extends State<addRecipes> {
               heightSpacer(15),
               buildTextFormFieldDescription(),
               heightSpacer(15),
+              Row(
+                children: [
+                  Checkbox(
+                      value: isLactoseFreeChecked,
+                      onChanged: (newBool) {
+                        setState(() {
+                          isLactoseFreeChecked = newBool;
+                        });
+                      }),
+                  const Text("Lactose Free")
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: isVegetarianChecked,
+                      onChanged: (newBool) {
+                        setState(() {
+                          isVegetarianChecked = newBool;
+                        });
+                      }),
+                  const Text("Vegetarian")
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: isGlutenfreeChecked,
+                      onChanged: (newBool) {
+                        setState(() {
+                          isGlutenfreeChecked = newBool;
+                        });
+                      }),
+                  const Text("Glutenfree")
+                ],
+              ),
               SizedBox(
                 width: 100,
                 height: 40,
@@ -108,10 +158,11 @@ class _addRecipesState extends State<addRecipes> {
                     final description = titleDescription.text;
                     final cookTime = titleCookTime.text;
                     createRecepe(
-                        name: name,
-                        descriptions: description,
-                        time: cookTime,
-                        thumbnailUrl: thumbnailUrl);
+                      name: name,
+                      descriptions: description,
+                      time: cookTime,
+                      thumbnailUrl: thumbnailUrl,
+                    );
 
                     showDialog(
                       context: context,
@@ -278,12 +329,14 @@ class _addRecipesState extends State<addRecipes> {
     String userUid = auth.currentUser!.uid.toString();
 
     final recipe = _addRecipesState(
-      id: docUser.id,
-      thumbnailUrl: thumbnailUrl,
-      title: name,
-      cookTime: time,
-      description: descriptions,
-    );
+        id: docUser.id,
+        thumbnailUrl: thumbnailUrl,
+        title: name,
+        cookTime: time,
+        description: descriptions,
+        isGlutenfreeChecked: isGlutenfreeChecked,
+        isLactoseFreeChecked: isLactoseFreeChecked,
+        isVegetarianChecked: isVegetarianChecked);
     final recipesData = recipe.toJson();
 
     await docUser.set(recipesData);
