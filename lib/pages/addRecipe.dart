@@ -97,9 +97,9 @@ class _addRecipesState extends State<addRecipes> {
                               height: 130,
                               fit: BoxFit.cover,
                             )
-                          : Image.network(thumbnailUrl),
+                          : Image.network(thumbnailUrl, width: 150, height: 150, fit: BoxFit.cover),
                     )
-                  : const FlutterLogo(size: 130),
+                  : const FlutterLogo(size: 150),
               buildImagePicker(
                 icon: Icons.add_a_photo,
                 onClicked: () {
@@ -348,7 +348,7 @@ class _addRecipesState extends State<addRecipes> {
       appBar: AppBar(
         title: const Text("Recipe App"),
       ),
-      body: Container(
+      body:  Container(
         child: SingleChildScrollView(
           child: buildTextFields(),
         ),
