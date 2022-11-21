@@ -63,10 +63,6 @@ class RecipeCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
                   child: Row(
                     children: [
                       const SizedBox(width: 7),
