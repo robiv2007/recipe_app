@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/pages/recipe_overview_screen.dart';
+import 'package:recipe_app/pages/detailed_recipe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RecipeCard extends StatelessWidget {
   final String title;
+  final String description;
   final String cookTime;
   final String thumbnailUrl;
 
   RecipeCard({
     required this.title,
+    required this.description,
     required this.cookTime,
     required this.thumbnailUrl,
   });
@@ -87,7 +91,13 @@ class RecipeCard extends StatelessWidget {
                       Text(cookTime, style: TextStyle(color: Colors.white)),
                     ],
                   ),
-                )
+                ),
+                                  GestureDetector(
+                  onTap: () {
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => SecondRoute(text: title, text2: description, text3: thumbnailUrl, text4: cookTime),
+                  ));
+                  },
+                              ),
               ],
             ),
           ),
