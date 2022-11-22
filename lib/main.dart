@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+<<<<<<< Updated upstream
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -119,3 +120,17 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+=======
+// void _addRecipeBottomSheet(context) {
+//   showModalBottomSheet(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return Container(
+//             height: MediaQuery.of(context).size.height * .60,
+//             child: Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Text("Test"),
+//             ));
+//       });
+// }
+>>>>>>> Stashed changes
