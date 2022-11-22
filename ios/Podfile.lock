@@ -65,11 +65,11 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  Firebase: 1b810f3d0c0532e27a48f1961f8c0400a668a2cf
-  firebase_auth: dd33e93fce72a1c72040f7380dacf06e89db5705
-  firebase_core: 5c0bb0ca7d0e70480a68a6e9ad9bf55d1edd5305
-  FirebaseAuth: 493382cf533cc45e2862b00e9aa4cfe4c98daf71
-  FirebaseCore: 97f48a3a567a72b8d4daa0f03c3aadb78df4e995
+  Firebase: 444b35a9c568a516666213c2f6cccd10cb12559f
+  firebase_auth: 6e24814d3c9976a288da6bb7a49ac79616863b5b
+  firebase_core: d2242c6f318db1d0dcecfbfa491e943337b0d755
+  FirebaseAuth: 19a85b8a42e7c1104a2ffa6987c748daa79a5e64
+  FirebaseCore: 55e7ae35991ccca4db03ff8d8df6ed5f17a3e4c7
   FirebaseCoreInternal: 96d75228e10fd369564da51bd898414eb0f54df5
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
