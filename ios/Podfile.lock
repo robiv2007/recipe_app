@@ -1,22 +1,22 @@
 PODS:
-  - Firebase/Auth (10.0.0):
+  - Firebase/Auth (10.1.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 10.0.0)
-  - Firebase/CoreOnly (10.0.0):
-    - FirebaseCore (= 10.0.0)
-  - firebase_auth (4.1.1):
-    - Firebase/Auth (= 10.0.0)
+    - FirebaseAuth (~> 10.1.0)
+  - Firebase/CoreOnly (10.1.0):
+    - FirebaseCore (= 10.1.0)
+  - firebase_auth (4.1.2):
+    - Firebase/Auth (= 10.1.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.1.1):
-    - Firebase/CoreOnly (= 10.0.0)
+  - firebase_core (2.2.0):
+    - Firebase/CoreOnly (= 10.1.0)
     - Flutter
-  - FirebaseAuth (10.0.0):
+  - FirebaseAuth (10.1.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (~> 2.1)
-  - FirebaseCore (10.0.0):
+  - FirebaseCore (10.1.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
@@ -38,7 +38,7 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.8.0)"
   - GoogleUtilities/Reachability (7.8.0):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (2.2.0)
+  - GTMSessionFetcher/Core (2.3.0)
   - PromisesObjC (2.1.1)
 
 DEPENDENCIES:
@@ -73,7 +73,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 96d75228e10fd369564da51bd898414eb0f54df5
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
-  GTMSessionFetcher: d62ffccea5108bb9e7762ee121ae63bbdd2c6303
+  GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3

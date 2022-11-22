@@ -61,6 +61,13 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                   "https://assets.biggreenegg.eu/app/uploads/2021/04/30120446/topimage-pizza-margherita-2021m05-800x533-1.jpg",
             );
           },
+          onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const MyHomePage(title: "recipe"),
+                    ),
+                  );
+                },
         ));
   }
 }
