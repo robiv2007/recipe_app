@@ -14,38 +14,53 @@ class FavRoute extends StatelessWidget {
   final User? user = Auth().currentUser;
 
   final CollectionReference _recipes =
-      FirebaseFirestore.instance.collection('Recipes');
+      FirebaseFirestore.instance.collection('Favorite');
+
+  final String title;
+  final String description;
+  final String cookTime;
+  final String thumbnailUrl;
+
+    FavRoute(
+      {Key? key,
+      required this.title,
+      required this.description,
+      required this.cookTime,
+      required this.thumbnailUrl, bool? isGlutenfreeChecked, bool? isLactoseFreeChecked, bool? isVegetarianChecked})
+      : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Favourites'),
+          title: const Text('Favorite'),
         ),
         body: StreamBuilder(
           stream: _recipes.snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-            if (streamSnapshot.hasData) {
-              return ListView.builder(
-                itemCount: 1,
-                padding: EdgeInsets.all(16),
-                itemBuilder: (context, index) {
-                  final DocumentSnapshot documentSnapshot =
-                      streamSnapshot.data!.docs[0];
-                  return RecipeCard(
-                    title: documentSnapshot['name'],
-                    description: documentSnapshot['description'],
-                    cookTime: documentSnapshot['CookTime'],
-                    thumbnailUrl: documentSnapshot['thumbnailUrl'],
-                  );
-                },
-              );
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
+         builder:(context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    if (streamSnapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: streamSnapshot.data!.docs.length,
+                        padding: EdgeInsets.all(16),
+                        itemBuilder: (context, index) {
+                          final DocumentSnapshot documentSnapshot =
+                              streamSnapshot.data!.docs[index];
+
+                          return RecipeCard(
+                            title: documentSnapshot['name'],
+                            description: documentSnapshot['description'],
+                            cookTime: documentSnapshot['CookTime'],
+                            thumbnailUrl: documentSnapshot['thumbnailUrl'],
+                          );
+                        },
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
     );
   }
+
 }

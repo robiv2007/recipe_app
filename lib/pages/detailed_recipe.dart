@@ -13,13 +13,15 @@ class SecondRoute extends StatelessWidget {
   final String cookTime;
   final String thumbnailUrl;
 
-  SecondRoute(
+  const SecondRoute(
       {Key? key,
       required this.title,
       required this.description,
       required this.cookTime,
       required this.thumbnailUrl})
       : super(key: key);
+
+      
 
   @override
   Widget build(BuildContext context) {
@@ -96,11 +98,14 @@ class SecondRoute extends StatelessWidget {
                     child: Text("CookTime : $cookTime min",
                         style: TextStyle(fontSize: 20))),
               ),
-              MyStatelessWidget(
+              _MyStatelessWidget(
                   title: title,
                   description: description,
                   thumbnailUrl: thumbnailUrl,
-                  cookTime: cookTime),
+                  cookTime: cookTime,
+                  isGlutenfreeChecked: false,
+                  isLactoseFreeChecked: false,
+                  isVegetarianChecked: false,),
             ],
           ),
         ),
@@ -109,18 +114,78 @@ class SecondRoute extends StatelessWidget {
   }
 }
 
-class MyStatelessWidget extends StatelessWidget {
-  const MyStatelessWidget(
-      {super.key,
+class _MyStatelessWidget extends StatelessWidget {
+  
+  String? title;
+  String? description;
+  String? cookTime;
+  String? thumbnailUrl;
+  String? id;
+  bool? isVegetarianChecked = false;
+  bool? isGlutenfreeChecked = false;
+  bool? isLactoseFreeChecked = false;
+  
+
+
+    Map<String, dynamic> toJson() => {
+       "thumbnailUrl": thumbnailUrl,
+        "name": title,
+        "CookTime": cookTime,
+        "description": description,
+        "isVegetarianChecked": isVegetarianChecked,
+        "isLactoseFreeChecked": isLactoseFreeChecked,
+        "isGlutenFreeChecked": isGlutenfreeChecked
+      };
+
+      _MyStatelessWidget(
+      {this.id = "",
       required this.title,
       required this.description,
       required this.cookTime,
-      required this.thumbnailUrl});
+      required this.thumbnailUrl,
+      required this.isGlutenfreeChecked,
+      required this.isLactoseFreeChecked,
+      required this.isVegetarianChecked});
 
-  final String title;
-  final String description;
-  final String cookTime;
-  final String thumbnailUrl;
+      
+  static _MyStatelessWidget fromJson(Map<String, dynamic> json) =>
+      _MyStatelessWidget(
+          id: json["id"],
+          thumbnailUrl: json["thumbnail"],
+          title: json["name"],
+          cookTime: json["cookTime"],
+          description: json["description"],
+          isGlutenfreeChecked: json["isGlutenFreeChecked"],
+          isLactoseFreeChecked: json["isLactoseFreeChecked"],
+          isVegetarianChecked: json["isVegetarianChecked"],
+          );
+     Stream<List<_MyStatelessWidget>> readUsers() => FirebaseFirestore.instance
+      .collection("Favourite")
+      .snapshots()
+      .map((snapshot) => snapshot.docs
+          .map((doc) =>_MyStatelessWidget.fromJson(doc.data()))
+          .toList());
+
+  Future<dynamic> createFavorite({String? title, String? description, String? cookTime, String? thumbnailUrl}
+       
+      ) async {
+    final docUser = FirebaseFirestore.instance.collection("Favorite").doc();
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    final recipe = _MyStatelessWidget(
+        thumbnailUrl: thumbnailUrl,
+        title: title,
+        cookTime: cookTime,
+        description: description,
+        isGlutenfreeChecked: isGlutenfreeChecked,
+        isLactoseFreeChecked: isLactoseFreeChecked,
+        isVegetarianChecked: isVegetarianChecked,
+    );
+    final recipesData = recipe.toJson();
+
+    await docUser.set(recipesData);
+  }
+////////////
 
   @override
   Widget build(BuildContext context) {
@@ -165,15 +230,27 @@ class MyStatelessWidget extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
+        
                             Navigator.pop(context, 'Save');
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FavRoute(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FavRoute(
+                              title: "name",
+                              description: "description",
+                              cookTime: "cookTime",
+                              thumbnailUrl: "thumbnailUrl",
+                              isGlutenfreeChecked: false,
+                              isLactoseFreeChecked: false,
+                              isVegetarianChecked: false)));
+                                    createFavorite(
                                         title: title,
                                         description: description,
                                         thumbnailUrl: thumbnailUrl,
-                                        cookTime: cookTime)));
+                                        cookTime: cookTime,
+                                        );
+
+                                        
                           },
                           child: const Text('Save'),
                         ),

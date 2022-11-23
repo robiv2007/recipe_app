@@ -6,6 +6,7 @@ import '../auth.dart';
 import 'addRecipe.dart';
 import 'favorites.dart';
 
+
 class RecipeOverviewScreen extends StatefulWidget {
   const RecipeOverviewScreen({super.key});
 
@@ -19,8 +20,8 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
   final User? user = Auth().currentUser;
 
   final CollectionReference _recipes =
-      FirebaseFirestore.instance.collection('Recipes');
-
+    FirebaseFirestore.instance.collection('Recipes');
+    
   bool lactose = false;
   bool vegetarian = false;
   bool glutenFree = false;
@@ -81,12 +82,15 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.favorite_border),
+                leading: const Icon(Icons.favorite_border),
                 title: const Text("Favorite"),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => FavRoute(),
+                      
+                     builder: (context) => FavRoute(title: "name",description: "description",cookTime: "cookTime",thumbnailUrl: "thumbnailUrl",),
+                     
+                      
                     ),
                   );
                 },
@@ -202,4 +206,5 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
           ],
         ));
   }
+  
 }
