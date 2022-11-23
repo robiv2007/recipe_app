@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/cardView.dart';
+import 'package:recipe_app/main.dart';
 import '../auth.dart';
 import 'addRecipe.dart';
+import 'detailed_recipe.dart';
 import 'favorites.dart';
 
 class RecipeOverviewScreen extends StatefulWidget {
@@ -63,7 +66,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
               ),
               ListTile(
                 /*Add Recipe button*/
-                leading: const Icon(Icons.add_circle_outline),
+                leading: Icon(Icons.add_circle_outline),
                 title: const Text("Add Recipe"),
                 onTap: () {
                   Navigator.push(
@@ -82,7 +85,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
               ),
               ListTile(
                 leading: Icon(Icons.favorite_border),
-                title: const Text("Favorite"),
+                title: Text("Favorite"),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -92,8 +95,8 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('LOG OUT'),
+                leading: Icon(Icons.logout),
+                title: Text('LOG OUT'),
                 onTap: () async {
                   await _auth.signOut();
                 },
@@ -102,7 +105,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
           ),
         ),
         appBar: AppBar(
-          title: const Text("Recipe"),
+          title: Text("Recipe"),
         ),
         body: Column(
           children: <Widget>[
@@ -138,7 +141,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                   },
                   child: Text(lactose ? 'Selected' : 'Lactose Free'),
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 15,
                 ),
                 TextButton(
@@ -154,7 +157,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                   },
                   child: Text(glutenFree ? 'Selected' : 'Gluten Free'),
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 15,
                 ),
                 TextButton(

@@ -5,122 +5,110 @@ import 'package:recipe_app/cardView.dart';
 import 'package:recipe_app/main.dart';
 import '../auth.dart';
 import 'addRecipe.dart';
-import "favorites.dart";
+import 'recipe_overview_screen.dart';
+
 
 class SecondRoute extends StatelessWidget {
-  final String title;
-  final String description;
-  final String cookTime;
-  final String thumbnailUrl;
 
-  SecondRoute(
-      {Key? key,
-      required this.title,
-      required this.description,
-      required this.cookTime,
-      required this.thumbnailUrl})
-      : super(key: key);
+   String text;
+   String text2;
+   String text3;
+   String text4;
+   SecondRoute({Key? key,required this.text, required this.text2, required this.text3, required this.text4}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
+@override
+  Widget build(BuildContext context) { 
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 30),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image(
-                  height: 200.0,
-                  image: NetworkImage(thumbnailUrl),
-                ),
+            appBar: AppBar(
+        
+      ),
+      
+    body: Center(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 30),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image(
+                height: 200.0,
+                image: NetworkImage(text3),        
               ),
-              const SizedBox(height: 30),
-              Container(
-                width: 200,
+            ),
+            const SizedBox(height: 30),
+            Container(
+              width: 200,
                 decoration: BoxDecoration(
-                  border: Border.all(
+                border: Border.all(
                     color: Colors.black,
                     width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
+                ),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
                     new BoxShadow(
-                      color: Colors.grey,
+                    color: Colors.grey,
                     ),
-                  ],
+                ],
                 ),
                 child: Center(
                   child: FittedBox(
-                      child: Text(title, style: TextStyle(fontSize: 20))),
+                    child: Text("$text", style: TextStyle(fontSize: 20))
+                  ),
                 ),
-              ),
-              const SizedBox(height: 30),
-              Container(
+            ),
+            const SizedBox(height: 30),
+	        Container(
                 width: 350,
                 height: 250,
                 decoration: BoxDecoration(
-                  border: Border.all(
+                border: Border.all(
                     color: Colors.orange,
                     width: 5,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
+                ),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
                     new BoxShadow(
-                      color: Colors.yellow,
+                    color: Colors.yellow,
                     ),
-                  ],
+                ],
                 ),
                 child: Center(
-                    child: Text(description, style: TextStyle(fontSize: 20))),
-              ),
-              const SizedBox(height: 30),
-              Container(
+                child: Text("$text2", style: TextStyle(fontSize: 20))
+                ),
+            ),
+            const SizedBox(height: 30),
+            Container(
                 width: 250,
                 height: 70,
                 decoration: BoxDecoration(
-                  border: Border.all(
+                border: Border.all(
                     color: Colors.yellow,
                     width: 5,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
+                ),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
                     new BoxShadow(
-                      color: Colors.orange,
+                    color: Colors.orange,
                     ),
-                  ],
+                ],
                 ),
                 child: Center(
-                    child: Text("CookTime : $cookTime min",
-                        style: TextStyle(fontSize: 20))),
-              ),
-              MyStatelessWidget(
-                  title: title,
-                  description: description,
-                  thumbnailUrl: thumbnailUrl,
-                  cookTime: cookTime),
-            ],
-          ),
+                  child: Text("CookTime : $text4 min", style: TextStyle(fontSize: 20))
+                ),
+            ),
+            MyStatelessWidget(        
+            ),
+          ],
         ),
       ),
+    ),
     );
   }
 }
 
 class MyStatelessWidget extends StatelessWidget {
-  const MyStatelessWidget(
-      {super.key,
-      required this.title,
-      required this.description,
-      required this.cookTime,
-      required this.thumbnailUrl});
+  const MyStatelessWidget({super.key});
 
-  final String title;
-  final String description;
-  final String cookTime;
-  final String thumbnailUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -152,34 +140,25 @@ class MyStatelessWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     textStyle: const TextStyle(fontSize: 20),
                   ),
-                  onPressed: () => showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: const Text('Save Recipe'),
-                      content: const Text(
-                          'Do you want to save this recipe to your favourites?'),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.pop(context, 'Cancel'),
-                          child: const Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context, 'Save');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FavRoute(
-                                        title: title,
-                                        description: description,
-                                        thumbnailUrl: thumbnailUrl,
-                                        cookTime: cookTime)));
-                          },
-                          child: const Text('Save'),
-                        ),
-                      ],
-                    ),
-                  ),
+                        onPressed: () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Save Recipe'),
+          content: const Text('Do you want to save this recipe to your favourites?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+                onPressed: () {
+                    Navigator.pop(context, 'Save');
+                },
+              child: const Text('Save'),
+            ),
+          ],
+        ),
+      ),
                   child: const Text('Save Recipe'),
                 ),
               ],

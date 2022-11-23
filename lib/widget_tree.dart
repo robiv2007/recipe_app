@@ -1,6 +1,8 @@
 import 'package:recipe_app/auth.dart';
+import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/pages/login_register_page.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_app/main.dart';
 import 'package:recipe_app/pages/recipe_overview_screen.dart';
 
 class WidgetTree extends StatefulWidget {
