@@ -24,7 +24,7 @@ class SecondRoute extends StatelessWidget {
       ),
       
     body: Center(
-      child: Center(
+      child: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 30),
