@@ -9,6 +9,7 @@ import 'addRecipe.dart';
 import 'detailed_recipe.dart';
 import 'favorites.dart';
 
+
 class RecipeOverviewScreen extends StatefulWidget {
   const RecipeOverviewScreen({super.key});
 
@@ -22,8 +23,8 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
   final User? user = Auth().currentUser;
 
   final CollectionReference _recipes =
-      FirebaseFirestore.instance.collection('Recipes');
-
+    FirebaseFirestore.instance.collection('Recipes');
+    
   bool lactose = false;
   bool vegetarian = false;
   bool glutenFree = false;
@@ -84,12 +85,15 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.favorite_border),
-                title: Text("Favorite"),
+                leading: const Icon(Icons.favorite_border),
+                title: const Text("Favorite"),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => FavRoute(),
+                      
+                     builder: (context) => FavRoute(title: "name",description: "description",cookTime: "cookTime",thumbnailUrl: "thumbnailUrl",),
+                     
+                      
                     ),
                   );
                 },
@@ -109,22 +113,6 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
         ),
         body: Column(
           children: <Widget>[
-            // TextField(
-            //   decoration: InputDecoration(
-            //     filled: true,
-            //     fillColor: Colors.grey[300],
-            //     border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(8.0),
-            //         borderSide: BorderSide.none),
-            //     hintText: "Search for recipes...",
-            //     suffixIcon: const Icon(Icons.search),
-            //   ),
-            //   onChanged: (value) {
-            //     setState(() {
-            //       searchText = value;
-            //     });
-            //   },
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -141,7 +129,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                   },
                   child: Text(lactose ? 'Selected' : 'Lactose Free'),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 TextButton(
@@ -157,7 +145,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                   },
                   child: Text(glutenFree ? 'Selected' : 'Gluten Free'),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 TextButton(
@@ -183,7 +171,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                     if (streamSnapshot.hasData) {
                       return ListView.builder(
                         itemCount: streamSnapshot.data!.docs.length,
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         itemBuilder: (context, index) {
                           final DocumentSnapshot documentSnapshot =
                               streamSnapshot.data!.docs[index];
@@ -205,4 +193,5 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
           ],
         ));
   }
+  
 }
