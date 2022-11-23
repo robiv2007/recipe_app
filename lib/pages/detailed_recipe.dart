@@ -37,39 +37,38 @@ class SecondRoute extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Container(
-                width: 600,
-                height: 70,
+              width: 200,
                 decoration: BoxDecoration(
                 border: Border.all(
                     color: Colors.black,
-                    width: 5,
+                    width: 2,
                 ),
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                     new BoxShadow(
                     color: Colors.grey,
-                    offset: new Offset(10.0, 10.0),
                     ),
                 ],
                 ),
                 child: Center(
-                child: Text("$text", style: TextStyle(fontSize: 20))
+                  child: FittedBox(
+                    child: Text("$text", style: TextStyle(fontSize: 20))
+                  ),
                 ),
             ),
             const SizedBox(height: 30),
 	        Container(
-                width: 800,
-                height: 100,
+                width: 350,
+                height: 250,
                 decoration: BoxDecoration(
                 border: Border.all(
-                    color: Colors.black,
+                    color: Colors.orange,
                     width: 5,
                 ),
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                     new BoxShadow(
-                    color: Colors.grey,
-                    offset: new Offset(10.0, 10.0),
+                    color: Colors.yellow,
                     ),
                 ],
                 ),
@@ -79,23 +78,22 @@ class SecondRoute extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Container(
-                width: 200,
-                height: 100,
+                width: 250,
+                height: 70,
                 decoration: BoxDecoration(
                 border: Border.all(
-                    color: Colors.black,
+                    color: Colors.yellow,
                     width: 5,
                 ),
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                     new BoxShadow(
-                    color: Colors.grey,
-                    offset: new Offset(10.0, 10.0),
+                    color: Colors.orange,
                     ),
                 ],
                 ),
                 child: Center(
-                child: Text("CookTime : $text4 min", style: TextStyle(fontSize: 20))
+                  child: Text("CookTime : $text4 min", style: TextStyle(fontSize: 20))
                 ),
             ),
             MyStatelessWidget(        

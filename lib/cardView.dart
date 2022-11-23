@@ -17,7 +17,8 @@ class RecipeCard extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWell(
+      child: Container(
       margin: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
       width: MediaQuery.of(context).size.width,
       height: 180,
@@ -44,6 +45,7 @@ class RecipeCard extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
+      
       child: Stack(
         children: [
           Align(
@@ -92,17 +94,16 @@ class RecipeCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                                  GestureDetector(
-                  onTap: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => SecondRoute(text: title, text2: description, text3: thumbnailUrl, text4: cookTime),
-                  ));
-                  },
-                              ),
+// Paste
               ],
             ),
           ),
         ],
       ),
-    );
+    ),
+                      onTap: () {
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => SecondRoute(text: title, text2: description, text3: thumbnailUrl, text4: cookTime),
+                  ));
+                  },);
   }
 }
