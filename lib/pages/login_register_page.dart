@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
     return TextField(
       controller: _controllerEmail,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
+        prefixIcon: const Icon(Icons.mail),
         filled: true,
         fillColor: Colors.white,
         contentPadding: const EdgeInsets.all(5),
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
       controller: _controllerPassword,
       obscureText: true,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.key),
+        prefixIcon: const Icon(Icons.key),
         filled: true,
         fillColor: Colors.white,
         contentPadding: const EdgeInsets.all(5),
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _errorMessage() {
     return Text(
       errorMessage == '' ? '' : '$errorMessage',
-      style: TextStyle(color: Colors.white, fontSize: 14),
+      style: const TextStyle(color: Colors.white, fontSize: 14),
     );
   }
 
@@ -92,8 +92,8 @@ class _LoginPageState extends State<LoginPage> {
     return ElevatedButton(
       onPressed:
           isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
-      child: Text(isLogin ? 'Login' : 'Register'),
       style: ElevatedButton.styleFrom(fixedSize: const Size(150, 30)),
+      child: Text(isLogin ? 'Login' : 'Register'),
     );
   }
 
@@ -125,10 +125,10 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
-            Text(
+            const Text(
               "Vesuvio",
               style: TextStyle(
                 fontStyle: FontStyle.italic,
@@ -136,19 +136,19 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.white,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             _entryFieldEmail('email', _controllerEmail),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             _entryFieldPassword('password', _controllerPassword),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             _errorMessage(),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             _submitButton(),

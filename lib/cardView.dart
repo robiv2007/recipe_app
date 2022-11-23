@@ -102,7 +102,7 @@ class RecipeCard extends StatelessWidget {
       ),
     ),
                       onTap: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => SecondRoute(text: title, text2: description, text3: thumbnailUrl, text4: cookTime),
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => SecondRoute(title: title, description: description, thumbnailUrl: thumbnailUrl, cookTime: cookTime),
                   ));
                   },);
   }
