@@ -6,6 +6,8 @@ import 'package:recipe_app/cardView.dart';
 import 'package:recipe_app/main.dart';
 import '../auth.dart';
 import 'addRecipe.dart';
+import 'detailed_recipe.dart';
+import 'favorites.dart';
 
 class RecipeOverviewScreen extends StatefulWidget {
   const RecipeOverviewScreen({super.key});
@@ -87,7 +89,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => MyHomePage(title: "recipe"),
+                      builder: (context) => FavRoute(),
                     ),
                   );
                 },
@@ -188,6 +190,7 @@ class _RecipeOverviewScreenState extends State<RecipeOverviewScreen> {
 
                           return RecipeCard(
                             title: documentSnapshot['name'],
+                            description: documentSnapshot['description'],
                             cookTime: documentSnapshot['CookTime'],
                             thumbnailUrl: documentSnapshot['thumbnailUrl'],
                           );

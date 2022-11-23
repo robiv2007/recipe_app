@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/pages/recipe_overview_screen.dart';
+import 'package:recipe_app/pages/detailed_recipe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RecipeCard extends StatelessWidget {
   final String title;
+  final String description;
   final String cookTime;
   final String thumbnailUrl;
 
   RecipeCard({
     required this.title,
+    required this.description,
     required this.cookTime,
     required this.thumbnailUrl,
   });
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWell(
+      child: Container(
       margin: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
       width: MediaQuery.of(context).size.width,
       height: 180,
@@ -40,6 +45,7 @@ class RecipeCard extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
+      
       child: Stack(
         children: [
           Align(
@@ -87,12 +93,17 @@ class RecipeCard extends StatelessWidget {
                       Text(cookTime, style: TextStyle(color: Colors.white)),
                     ],
                   ),
-                )
+                ),
+// Paste
               ],
             ),
           ),
         ],
       ),
-    );
+    ),
+                      onTap: () {
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => SecondRoute(text: title, text2: description, text3: thumbnailUrl, text4: cookTime),
+                  ));
+                  },);
   }
 }
